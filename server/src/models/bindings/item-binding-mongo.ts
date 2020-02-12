@@ -49,8 +49,8 @@ const itemModel: IDBModel<any> = {
     }));
   },
 
-  getAllByItem: async id => {
-    const item: any = await Item.find({ _id: { $in: id } }).exec();
+  getAllByItem: async data => {
+    const item: any = await Item.find({ _id: { $in: data } }).exec();
 
     return item.map(i => ({
       id: i._id.toString(),

@@ -39,10 +39,10 @@ const supplierStatusModel: IDBModel<any> = {
     }));
   },
 
-  getAllByItem: async id => {},
-  getAllBySupplierStatus: async id => {
+  getAllByItem: async data => {},
+  getAllBySupplierStatus: async data => {
     const supplierStatus: any = await SupplierStatus.find({
-      _id: { $in: id }
+      _id: { $in: data }
     }).exec();
 
     return supplierStatus.map(ss => ({
