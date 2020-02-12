@@ -50,21 +50,9 @@ const itemModel: IDBModel<any> = {
   },
 
   getAllByItem: async id => {
-    const item: any = await Item.find({}).exec();
+    const item: any = await Item.find({ _id: { $in: id } }).exec();
 
-    const filteredItem: Array<any> = id.map(list => {
-      const filterData = data => {
-        if (data._id.toString() === list) {
-          return data;
-        }
-      };
-
-      const a = item.filter(filterData);
-      console.log(a);
-      return a[0];
-    });
-
-    return filteredItem.map(i => ({
+    return item.map(i => ({
       id: i._id.toString(),
       itemNo: i.itemNo,
       description: i.description,

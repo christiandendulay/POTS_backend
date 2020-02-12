@@ -20,7 +20,7 @@ const purchaseOrderModel: IDBModel<any> = {
 
   getAll: async () => {
     const po: any = await PurchaseOrder.find({}).exec();
-    console.log("PO", po);
+
     return po.map(u => ({
       id: u._id.toString(),
       externalID: u.externalID,

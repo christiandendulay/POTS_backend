@@ -41,22 +41,11 @@ const supplierStatusModel: IDBModel<any> = {
 
   getAllByItem: async id => {},
   getAllBySupplierStatus: async id => {
-    console.log("ID", id);
-    const supplierStatus: any = await SupplierStatus.find({}).exec();
+    const supplierStatus: any = await SupplierStatus.find({
+      _id: { $in: id }
+    }).exec();
 
-    const filteredStatus: Array<any> = id.map(list => {
-      const filterData = data => {
-        if (data._id.toString() === list) {
-          return data;
-        }
-      };
-
-      const a = supplierStatus.filter(filterData);
-      console.log(a);
-      return a[0];
-    });
-    console.log(filteredStatus);
-    return filteredStatus.map(ss => ({
+    return supplierStatus.map(ss => ({
       id: ss._id.toString(),
       status: ss.status,
       dateCreated: ss.dateCreated
