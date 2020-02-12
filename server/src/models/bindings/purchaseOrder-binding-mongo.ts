@@ -1,93 +1,69 @@
-import { IDBModel } from '../../commons/types';
-import { PurchaseOrder, SupplierStatus, Supplier, Item } from '../mongo-models';
+import { IDBModel } from "../../commons/types";
+import { PurchaseOrder, SupplierStatus, Supplier, Item } from "../mongo-models";
 
 const purchaseOrderModel: IDBModel<any> = {
-	insert: async purchaseOrder => {
-		const newPO = await new PurchaseOrder({
-			externalID: purchaseOrder.externalID,
-			status: purchaseOrder.status,
-			supplierStatus: purchaseOrder.supplierStatus,
-			supplier: purchaseOrder.supplier,
-			items: purchaseOrder.items,
-		});
+  insert: async purchaseOrder => {
+    const newPO = await new PurchaseOrder({
+      externalID: purchaseOrder.externalID,
+      status: purchaseOrder.status,
+      supplierStatus: purchaseOrder.supplierStatus,
+      supplier: purchaseOrder.supplier,
+      items: purchaseOrder.items
+    });
 
-		return new Promise((resolve, reject) => {
-			newPO.save((err, res) => {
-				err ? reject(err) : resolve(res);
-			});
-		});
-	},
+    return new Promise((resolve, reject) => {
+      newPO.save((err, res) => {
+        err ? reject(err) : resolve(res);
+      });
+    });
+  },
 
-	getAll: async () => {
-		const po: any = await PurchaseOrder.find({}).exec();
+  getAll: async () => {
+    const po: any = await PurchaseOrder.find({}).exec();
 
-		return po.map(u => ({
-			id: u._id.toString(),
-			externalID: u.externalID,
-			status: u.status,
-			supplierStatus: u.supplierStatus.toString(),
-			supplier: u.supplier.toString(),
-			items: u.toString(),
-		}));
-	},
+    return po.map(u => ({
+      id: u._id.toString(),
+      externalID: u.externalID,
+      status: u.status,
+      supplierStatus: u.supplierStatus.toString(),
+      supplier: u.supplier.toString(),
+      items: u.toString()
+    }));
+  },
 
-	getById: async id => {
-		const u: any = await PurchaseOrder.findOne({ _id: id }).exec();
+  getById: async id => {
+    const u: any = await PurchaseOrder.findOne({ _id: id }).exec();
 
-		return {
-			id: u._id.toString(),
-			externalID: u.externalID,
-			status: u.status,
-			supplierStatus: u.supplierStatus.toString(),
-			supplier: u.supplier.toString(),
-			items: u.items.toString(),
-		};
-	},
+    return {
+      id: u._id.toString(),
+      externalID: u.externalID,
+      status: u.status,
+      supplierStatus: u.supplierStatus.toString(),
+      supplier: u.supplier.toString(),
+      items: u.items.toString()
+    };
+  },
 
-	getAllByItem: async id => {
-		const po: any = await PurchaseOrder.find({ items: id }).exec();
+  getAllByPO: async id => {},
 
-		return po.map(u => ({
-			id: u._id.toString(),
-			externalID: u.externalID,
-			status: u.status,
-			supplierStatus: u.supplierStatus.toString(),
-			supplier: u.supplier.toString(),
-			items: u.items.toString(),
-		}));
-	},
-
-	getAllBySupplierStatus: async id => {
-		const po: any = await PurchaseOrder.find({ supplierStatus: id }).exec();
-
-		return po.map(u => ({
-			id: u._id.toString(),
-			externalID: u.externalID,
-			status: u.status,
-			supplierStatus: u.supplierStatus.toString(),
-			supplier: u.supplier.toString(),
-			items: u.items.toString(),
-		}));
-	},
-
-	deleteById: async id => {
-		return new Promise((resolve, reject) => {
-			PurchaseOrder.findByIdAndDelete(id).exec((err, res) => {
-				err ? reject(err) : resolve(res);
-			});
-		});
-	},
-	updateById: async purchaseOrder => {
-		return new Promise((resolve, reject) => {
-			PurchaseOrder.findByIdAndUpdate(
-				{ _id: purchaseOrder.id },
-				{ $set: { ...purchaseOrder } },
-				{ new: true }
-			).exec((err, res) => {
-				err ? reject(err) : resolve(res);
-			});
-		});
-	},
+  deleteById: async id => {
+    return new Promise((resolve, reject) => {
+      PurchaseOrder.findByIdAndDelete(id).exec((err, res) => {
+        err ? reject(err) : resolve(res);
+      });
+    });
+  },
+  updateById: async purchaseOrder => {
+    return new Promise((resolve, reject) => {
+      PurchaseOrder.findByIdAndUpdate(
+        { _id: purchaseOrder.id },
+        { $set: { ...purchaseOrder } },
+        { new: true }
+      ).exec((err, res) => {
+        err ? reject(err) : resolve(res);
+      });
+    });
+  }
 };
 
 export { purchaseOrderModel };

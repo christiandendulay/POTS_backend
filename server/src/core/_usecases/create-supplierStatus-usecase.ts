@@ -1,12 +1,13 @@
-import { makeSupplierStatus } from '../supplierStatus';
+import { makeSupplierStatus } from "../supplierStatus";
 
 const createUCCreateSupplierStatus = () => suppplierStatusInput => {
-	const supplier = makeSupplierStatus({
-		status: suppplierStatusInput.status,
-		dateCreated: suppplierStatusInput.dateCreated,
-	});
+  const supplier = makeSupplierStatus({
+    status: suppplierStatusInput.status,
+    dateCreated: suppplierStatusInput.dateCreated,
+    poid: suppplierStatusInput.poid
+  });
 
-	return supplier;
+  return supplier;
 };
 
 export { createUCCreateSupplierStatus };

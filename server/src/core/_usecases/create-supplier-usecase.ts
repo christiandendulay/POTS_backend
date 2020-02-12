@@ -1,12 +1,12 @@
-import { makeSupplier } from '../supplier';
+import { makeSupplier } from "../supplier";
 
 const createUCCreateSupplier = () => suppplierInput => {
-	const supplier = makeSupplier({
-		name: suppplierInput.name,
-		address: suppplierInput.address,
-	});
+  const supplier = makeSupplier({
+    name: suppplierInput.name,
+    address: suppplierInput.address
+  });
 
-	return supplier;
+  return supplier;
 };
 
 export { createUCCreateSupplier };

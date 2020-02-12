@@ -1,20 +1,21 @@
 export type TSupplierStatus = {
-	status: string;
-	dateCreated: string;
+  status: string;
+  dateCreated: string;
+  poid: string;
 };
 
 const createMakeSupplierStatus = () => (supplierStatus: TSupplierStatus) => {
-	const { status, dateCreated } = supplierStatus;
+  const { status, dateCreated, poid } = supplierStatus;
 
-	if (!status) {
-		throw new Error('Status is required.');
-	}
+  if (!status) {
+    throw new Error("Status is required.");
+  }
 
-	if (!dateCreated) {
-		throw new Error('Date Created is required.');
-	}
+  if (!dateCreated) {
+    throw new Error("Date Created is required.");
+  }
 
-	return supplierStatus;
+  return supplierStatus;
 };
 
 export { createMakeSupplierStatus };

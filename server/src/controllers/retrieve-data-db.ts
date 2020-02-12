@@ -1,18 +1,14 @@
-import { IDBModel } from '../commons/types';
+import { IDBModel } from "../commons/types";
 
 const getAllDataDB = (db: IDBModel<any>) => async () => {
-	return db.getAll();
+  return db.getAll();
 };
 const getByIDDB = (db: IDBModel<any>) => async id => {
-	return db.getById(id);
+  return db.getById(id);
 };
 
-const getAllBySupplierStatusDB = (db: IDBModel<any>) => async id => {
-	return db.getAllBySupplierStatus(id);
+const getAllByPODB = (db: IDBModel<any>) => async id => {
+  return db.getAllByPO(id);
 };
 
-const getAllByItemDB = (db: IDBModel<any>) => async id => {
-	return db.getAllByItem(id);
-};
-
-export { getAllDataDB, getByIDDB, getAllByItemDB, getAllBySupplierStatusDB };
+export { getAllDataDB, getByIDDB, getAllByPODB };
