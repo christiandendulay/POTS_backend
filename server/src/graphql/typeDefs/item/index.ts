@@ -14,6 +14,8 @@ const typeDefs = gql`
 		deliveryDate: String!
 		supplierStatus: [SupplierStatus]
 		currency: String!
+		dateUpdated: String
+		timepUpdated: String
 	}
 
 	type Query {
@@ -38,6 +40,8 @@ const typeDefs = gql`
 		deliveryAddress: AddressInput!
 		deliveryDate: String!
 		currency: String!
+		dateUpdated: String
+		timeUpdated: String
 	}
 
 	input UpdateItemInput {
@@ -53,6 +57,8 @@ const typeDefs = gql`
 		deliveryDate: String
 		supplierStatus: [SupplierStatusInput]
 		currency: String
+		dateUpdated: String
+		timeUpdated: String
 	}
 `;
 

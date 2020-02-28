@@ -40,7 +40,6 @@ const itemModel: IDBModel<any> = {
 				err ? reject(err) : resolve(res);
 			});
 		});
-		console.log(newI.supplierStatus.timeCreated);
 
 		return {
 			id: newI._id,
@@ -85,7 +84,7 @@ const itemModel: IDBModel<any> = {
 
 	getAll: async () => {
 		const item: any = await Item.find({}).exec();
-		return item.map(i => ({
+		return item.map(item => ({
 			id: item._id.toString(),
 			itemNo: item.itemNo,
 			productId: item.productId,
@@ -134,18 +133,22 @@ const itemModel: IDBModel<any> = {
 			if (setFields[prop] == undefined) {
 				delete setFields[prop];
 			}
+			delete setFields.supplierStatus;
 		}
+
+		const supplierStatus = data.supplierStatus;
+
 		const item: any = await Item.findByIdAndUpdate(
 			{
 				_id: data.id,
 			},
-			setFields,
+			{ $set: { ...setFields }, $push: { supplierStatus: supplierStatus } },
 			{
 				new: true,
 			}
 		).exec();
 		return {
-			id: item._id,
+			id: item._id.toString(),
 			productId: item.productId,
 			itemNo: item.itemNo,
 			description: item.description,
@@ -155,7 +158,7 @@ const itemModel: IDBModel<any> = {
 			unitPrice: item.unitPrice,
 			deliveryAddress: item.deliveryAddress,
 			deliveryDate: item.deliveryDate,
-			supplierStatus: item.supplierStatus.toString(),
+			supplierStatus: item.supplierStatus,
 			currency: item.currency,
 			dateUpdated: item.dateUpdated,
 			timeUpdated: item.timeUpdated,

@@ -10,7 +10,6 @@ const purchaseOrderResolvers = {
 		},
 		items: async (parent, args, context, info) => {
 			const { getAllItemsByPurchaseOrder } = context;
-
 			return await getAllItemsByPurchaseOrder(parent.items);
 		},
 	},
@@ -62,8 +61,6 @@ const purchaseOrderResolvers = {
 			const { updatePurchaseOrderById, updateItemById, updateSupplierStatusById, updateSupplierById } = context;
 
 			const supplier = await updateSupplierById(purchaseOrder.supplier);
-			// const supplierStatus = await updateSupplierStatusById(purchaseOrder.supplierStatus);
-			// const items = await updateItemById(purchaseOrder.items);
 
 			const supplierStatus: Array<any> = await Promise.all(
 				purchaseOrder.supplierStatus.map(async ss => {
