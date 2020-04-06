@@ -111,10 +111,10 @@ const purchaseOrderGs: IDBModel<any> = {
     const items: Array<any> = id.map(i => models.item.getById(i));
 
     return items.map(itemz => {
-      const deliveryAddress = models.item.get({
+      const deliveryAddress = models.deliveryAddress.get({
         itemNo: itemz.itemNo,
         productId: itemz.productId,
-      }).deliveryAddress;
+      }).__metadata.uid;
       return {
         itemNo: itemz.itemNo,
         productId: itemz.productId,

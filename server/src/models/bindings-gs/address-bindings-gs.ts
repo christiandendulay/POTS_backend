@@ -5,16 +5,45 @@ const addressGs: IDBModel<any> = {
   insert: async add => {},
   getById: async id => {
     const models = await gsModels();
-    const a = models.vendorAddress.getById(id);
+    let a = models.vendorAddress.getById(id);
 
-    return {
-      building_name: a.vendorAddress,
-      street: a.vendorAddress,
-      city: a.vendorAddress,
-      state: a.vendorAddress,
-      zip_code: a.vendorAddress,
-      id: a.__metadata.uid,
-    };
+    if (a) {
+      console.log('vendorAddress', a);
+      return {
+        building_name: a.vendorAddress,
+        street: a.vendorAddress,
+        city: a.vendorAddress,
+        state: a.vendorAddress,
+        zip_code: a.vendorAddress,
+        id: a.__metadata.uid,
+      };
+    }
+
+    if (!a) {
+      a = models.deliveryAddress.getById(id);
+      console.log('deliveryaddress', a);
+      return {
+        building_name: a.deliveryAddress,
+        street: a.deliveryAddress,
+        city: a.deliveryAddress,
+        state: a.vendorAddress,
+        zip_code: a.deliveryAddress,
+        id: a.__metadata.uid,
+      };
+    }
+
+    if (!a) {
+      a = models.address.getById(id);
+      console.log('address', a);
+      return {
+        building_name: a.address,
+        street: a.address,
+        city: a.address,
+        state: a.address,
+        zip_code: a.address,
+        id: a.__metadata.uid,
+      };
+    }
   },
   getAll: async () => {
     const models = await gsModels();
